@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { NavbarStyles as Styled } from './navbar-styles'
 
-export const Navbar = () => {
+export function Navbar () {
   return (
     <Styled.NavbarContainer>
       <h1>My Transactions</h1>

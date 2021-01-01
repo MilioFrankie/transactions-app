@@ -6,7 +6,7 @@ const intialState = {
   password: ''
 }
 
-export const LoginForm = () => {
+export function LoginForm () {
   const [loginDetail, setLoginDetail] = useState(intialState)
 
   const handleChange = ({ target: { name, value } }) => {

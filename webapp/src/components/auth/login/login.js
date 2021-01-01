@@ -3,7 +3,7 @@ import { LoginForm } from '../../forms/login-form'
 import { FormStyles as Styled } from '../../forms/form-styles'
 import { Link } from 'react-router-dom'
 
-export const Login = () => {
+export function Login () {
   return (
     <Styled.FormContainer>
       <Styled.FormTitle>Login</Styled.FormTitle>

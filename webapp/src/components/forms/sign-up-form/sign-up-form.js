@@ -10,7 +10,7 @@ const intialState = {
   confirmPassword: ''
 }
 
-export const SignUpForm = () => {
+export function SignUpForm () {
   const [signUpDetails, setSignUpDetails] = useState(intialState)
   const [validPassword, setValidPassword] = useState(true)
 
