@@ -12,10 +12,11 @@ export const Navbar = () => {
             <Link to='/'>Home</Link>
           </li>
           <li>
-            <Link to='/another'>Another route</Link>
+            <Link to='/login'>Login</Link>
           </li>
-          <li>Login</li>
-          <li>Sign Up</li>
+          <li>
+            <Link to='/sign-up'>Sign Up</Link>
+          </li>
         </Styled.ListContainer>
       </nav>
     </Styled.NavbarContainer>
