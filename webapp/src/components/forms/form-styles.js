@@ -29,15 +29,13 @@ const SubmitButton = styled.button`
   }
 `
 const ErrorText = styled.p`
-margin: 0 0 14px;
-color: ${errorRed};
-font-size: 14px;
+  margin: 0 0 14px;
+  color: ${errorRed};
+  font-size: 14px;
 `
 const FormContainer = styled.div`
   display: flex;
-  height: 100%;
   min-height: calc(100vh - 150px);
-  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;

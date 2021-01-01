@@ -1,11 +1,12 @@
 import styled from '@emotion/styled'
 
 const ListContainer = styled.ul`
-  min-width: 300px;
   display: flex;
   flex-direction: row;
   list-style-type: none;
-  justify-content: space-between;
+  & > li:not(:first-of-type) {
+    margin-left: 14px;
+  }
 `
 
 const NavbarContainer = styled.div`
