@@ -55,14 +55,7 @@ export function SignUpForm () {
         value={signUpDetails.lastName}
       />
       <label htmlFor='dateOfBirth'>Date of Birth</label>
-      <Styled.Input
-        name='dateOfBirth'
-        onChange={handleChange}
-        placeholder='01/01/1900'
-        required
-        type='date'
-        value={signUpDetails.dateOfBirth}
-      />
+      <Styled.Input name='dateOfBirth' onChange={handleChange} required type='date' value={signUpDetails.dateOfBirth} />
       <label htmlFor='email'>Email</label>
       <Styled.Input
         name='email'
@@ -84,13 +77,14 @@ export function SignUpForm () {
       <label htmlFor='confirmPassword'>Confirm Password</label>
       <Styled.Input
         name='confirmPassword'
+        onBlur={validatePassword}
         onChange={handleChange}
         placeholder='confirm your password'
         required
         type='password'
         value={signUpDetails.confirmPassword}
       />
-      {!validPassword && <Styled.ErrorText>*Oops one of you passwords dont match.</Styled.ErrorText>}
+      {!validPassword && <Styled.ErrorText>*Oops one of you passwords don&#39;t match.</Styled.ErrorText>}
       <Styled.SubmitButton>Sign Up</Styled.SubmitButton>
     </Styled.Form>
   )

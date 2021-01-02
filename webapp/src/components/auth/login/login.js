@@ -8,7 +8,7 @@ export function Login () {
     <Styled.FormContainer>
       <Styled.FormTitle>Login</Styled.FormTitle>
       <LoginForm />
-      <Link to='/sign-up'>Dont have an account? Sign Up</Link>
+      <Link to='/sign-up'>Don&#39;t have an account? Sign Up</Link>
     </Styled.FormContainer>
   )
 }

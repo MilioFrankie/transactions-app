@@ -41,7 +41,14 @@ const FormContainer = styled.div`
   justify-content: center;
 `
 const FormTitle = styled.h1`
-  margin-top: 0
+  margin-top: 0;
+`
+const Select = styled.select`
+  margin: 7px 0;
+  padding: 14px;
+  border: 1px solid ${lightGrey};
+  background-color: white;
+  border-radius: 4px;
 `
 export const FormStyles = {
   Form,
@@ -49,5 +56,6 @@ export const FormStyles = {
   SubmitButton,
   ErrorText,
   FormContainer,
-  FormTitle
+  FormTitle,
+  Select
 }
