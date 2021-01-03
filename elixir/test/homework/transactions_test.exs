@@ -1,7 +1,6 @@
 defmodule Homework.TransactionsTest do
   use Homework.DataCase
 
-  alias Ecto.UUID
   alias Homework.Merchants
   alias Homework.Transactions
   alias Homework.Users
@@ -83,7 +82,8 @@ defmodule Homework.TransactionsTest do
 
     test "list_transactions/1 returns all transactions", %{valid_attrs: valid_attrs} do
       transaction = transaction_fixture(valid_attrs)
-      assert Transactions.list_transactions([]) == [transaction]
+      [found_transaction] = Transactions.list_transactions([])
+      assert transaction.id == found_transaction.id
     end
 
     test "get_transaction!/1 returns the transaction with given id", %{valid_attrs: valid_attrs} do

@@ -17,13 +17,9 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field(:inserted_at, :naive_datetime)
     field(:updated_at, :naive_datetime)
 
-    field(:user, :user) do
-      resolve(&TransactionsResolver.user/3)
-    end
+    field(:user, :user)
 
-    field(:merchant, :merchant) do
-      resolve(&TransactionsResolver.merchant/3)
-    end
+    field(:merchant, :merchant)
   end
 
   object :transaction_mutations do
