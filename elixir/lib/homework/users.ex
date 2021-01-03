@@ -8,6 +8,8 @@ defmodule Homework.Users do
 
   alias Homework.Users.User
 
+  alias Ecto.Changeset
+
   @doc """
   Returns the list of users.
 
@@ -49,6 +51,8 @@ defmodule Homework.Users do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_user(map)::{:ok, User.t()} | {:error, Changeset.t()}
+  
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
