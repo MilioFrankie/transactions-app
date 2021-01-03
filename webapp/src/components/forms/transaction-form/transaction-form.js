@@ -4,12 +4,12 @@ import PropTypes from 'prop-types'
 
 const intialState = {
   // transactionDate: '',
-  merchantId: '0687bca4-40c5-4627-ad7a-fc9224657410',
+  merchantId: 'e554eaf1-1eb9-477d-9836-904114852eee',
   amount: 0,
   description: '',
   credit: false,
   debit: false,
-  userId: '163f1ad5-9ec0-4dcc-abe4-0dcb09a3d9a8'
+  userId: '5d478bc5-5602-4fee-9563-fc9135a3369e'
 }
 
 export function TransactionForm ({ mutationFunction }) {
@@ -33,7 +33,6 @@ export function TransactionForm ({ mutationFunction }) {
   const handleSubmit = event => {
     event.preventDefault()
     mutationFunction({ variables: transaction })
-    window.alert(JSON.stringify(transaction))
   }
 
   return (
