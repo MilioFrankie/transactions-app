@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
-export const FetchTransactions = gql`
+export const GET_ALL_TRANSACTIONS = gql`
   query {
-    transactions{
+    transactions {
       id
       userId
       merchantId
@@ -10,6 +10,25 @@ export const FetchTransactions = gql`
       description
       credit
       debit
+      user {
+        firstName
+      }
+      merchant {
+        name
+      }
+    }
+  }
+`
+export const GET_TRANSACTION = gql`
+  query Transaction($id: ID!) {
+    transaction(id: $id) {
+      amount
+      description
+      id
+      credit
+      debit
+      userId
+      merchantId
     }
   }
 `

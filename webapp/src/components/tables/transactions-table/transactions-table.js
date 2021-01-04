@@ -17,8 +17,8 @@ export function TransactionsTable ({ data }) {
       <tbody>
         {data.transactions.map(transaction => (
           <Styled.TR key={transaction.id}>
-            <Styled.TD>{transaction.userId}</Styled.TD>
-            <Styled.TD>{transaction.merchantId}</Styled.TD>
+            <Styled.TD>{transaction.user.firstName}</Styled.TD>
+            <Styled.TD>{transaction.merchant.name}</Styled.TD>
             <Styled.TD>${transaction.amount}</Styled.TD>
             <Styled.TD>{transaction.description}</Styled.TD>
             <Styled.TD center>{transaction.credit && <Styled.CheckMark>&#10004;</Styled.CheckMark>}</Styled.TD>

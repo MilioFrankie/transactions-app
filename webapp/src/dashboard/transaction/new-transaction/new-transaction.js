@@ -2,20 +2,20 @@ import React from 'react'
 import { TransactionForm } from '../../../components/forms/transaction-form'
 import styled from '@emotion/styled'
 import { useMutation } from '@apollo/react-hooks'
-import { CreateTransaction } from '../../../graphql/mutations'
-import { FetchTransactions } from '../../../graphql/queries'
+import { CREATE_TRANSACTION } from '../../../graphql/mutations'
+import { GET_ALL_TRANSACTIONS } from '../../../graphql/queries'
 
 export function NewTransaction () {
-  const [createTransaction] = useMutation(CreateTransaction, {
+  const [createTransaction] = useMutation(CREATE_TRANSACTION, {
     update (
       cache,
       {
         data: { createTransaction }
       }
     ) {
-      const { transactions } = cache.readQuery({ query: FetchTransactions })
+      const { transactions } = cache.readQuery({ query: GET_ALL_TRANSACTIONS })
       cache.writeQuery({
-        query: FetchTransactions,
+        query: GET_ALL_TRANSACTIONS,
         data: { transactions: transactions.concat([createTransaction]) }
       })
     }
