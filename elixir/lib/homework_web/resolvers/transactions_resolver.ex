@@ -4,6 +4,13 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   alias Homework.Users
 
   @doc """
+  Get a transcation
+  """
+  def transaction(_root, %{id: id}, _info) do
+    {:ok, Transactions.get_transaction!(id)}
+  end
+
+  @doc """
   Get a list of transcations
   """
   def transactions(_root, args, _info) do
