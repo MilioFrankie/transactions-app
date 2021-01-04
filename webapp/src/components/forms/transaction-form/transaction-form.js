@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FormStyles as Styled } from '../form-styles'
 import PropTypes from 'prop-types'
 
-const intialState = {
+const initialState = {
   // transactionDate: '',
   merchantId: 'e554eaf1-1eb9-477d-9836-904114852eee',
   amount: 0,
@@ -12,8 +12,22 @@ const intialState = {
   userId: '5d478bc5-5602-4fee-9563-fc9135a3369e'
 }
 
-export function TransactionForm ({ mutationFunction }) {
-  const [transaction, setTransaction] = useState(intialState)
+export function TransactionForm ({ mutationFunction, data }) {
+  const [transaction, setTransaction] = useState(initialState)
+  useEffect(() => {
+    if (data) {
+      setTransaction(prevState => ({
+        ...prevState,
+        merchantId: data.transaction.merchantId,
+        amount: data.transaction.amount,
+        description: data.transaction.description,
+        credit: data.transaction.credit,
+        debit: data.transaction.debit,
+        userId: data.transaction.userId,
+        id: data.transaction.id
+      }))
+    }
+  }, [])
 
   const handleChange = ({ target: { name, value } }) => {
     if (value === 'credit') {
@@ -32,6 +46,7 @@ export function TransactionForm ({ mutationFunction }) {
 
   const handleSubmit = event => {
     event.preventDefault()
+    window.alert(JSON.stringify(transaction))
     mutationFunction({ variables: transaction })
   }
 
@@ -88,5 +103,6 @@ export function TransactionForm ({ mutationFunction }) {
 }
 
 TransactionForm.propTypes = {
-  mutationFunction: PropTypes.func
+  mutationFunction: PropTypes.func.isRequired,
+  data: PropTypes.object
 }
