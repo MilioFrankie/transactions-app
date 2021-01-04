@@ -7,7 +7,7 @@ export function DashboardView () {
   return (
     <div style={{ display: 'flex' }}>
       <NewTransaction />
-      <UpdateTransaction id={'9e81f566-525f-4f54-8ce8-eea642c9d6ee'} />
+      <UpdateTransaction id={'4c5f96ca-a736-4d55-86fe-df40e13a7c51'} />
       <ListTransactions />
     </div>
   )

@@ -24,6 +24,7 @@ export function ListTransactions () {
 
   if (loading) return <p>Loading...</p>
   if (error) return `Error ${error.message}`
+
   return (
     <TransactionContainer>
       <h1>Transactions</h1>

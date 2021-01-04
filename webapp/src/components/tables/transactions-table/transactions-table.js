@@ -19,7 +19,7 @@ export function TransactionsTable ({ data, deleteMutation }) {
           <Styled.TR key={transaction.id}>
             <Styled.TD>{transaction.user.firstName}</Styled.TD>
             <Styled.TD>{transaction.merchant.name}</Styled.TD>
-            <Styled.TD>${transaction.amount}</Styled.TD>
+            <Styled.TD>${transaction.amount / 100}</Styled.TD>
             <Styled.TD>{transaction.description}</Styled.TD>
             <Styled.TD center>{transaction.credit && <Styled.CheckMark>&#10004;</Styled.CheckMark>}</Styled.TD>
             <Styled.TD center>{transaction.debit && <Styled.CheckMark>&#10004;</Styled.CheckMark>}</Styled.TD>

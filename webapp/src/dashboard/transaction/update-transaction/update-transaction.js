@@ -33,10 +33,18 @@ export function UpdateTransaction ({ id }) {
   if (loading) return <p>...Loading</p>
   if (error) return `Error! ${error}`
 
+  const modifyPayload = obj => {
+    const newObj = {}
+    for (let key in obj) {
+      key === 'amount' ? (newObj[key] = obj[key] / 100) : (newObj[key] = obj[key])
+    }
+    return newObj
+  }
+
   return (
     <FormContainer>
       <h1>Update Transaction</h1>
-      <TransactionForm data={data} mutationFunction={updateTransaction} />
+      <TransactionForm data={modifyPayload(data.transaction)} mutationFunction={updateTransaction} />
     </FormContainer>
   )
 }

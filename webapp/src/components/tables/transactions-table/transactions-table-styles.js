@@ -17,6 +17,7 @@ const Table = styled.table`
   border-collapse: collapse;
 `
 const TR = styled.tr`
+    transition: ease-in .15s;
   &:hover {
     background-color: ${lightGrey};
   }

@@ -18,14 +18,7 @@ export function TransactionForm ({ mutationFunction, data }) {
   useEffect(() => {
     if (data) {
       setTransaction(prevState => ({
-        ...prevState,
-        merchantId: data.transaction.merchantId,
-        amount: data.transaction.amount,
-        description: data.transaction.description,
-        credit: data.transaction.credit,
-        debit: data.transaction.debit,
-        userId: data.transaction.userId,
-        id: data.transaction.id
+        ...prevState, ...data
       }))
     }
   }, [])
@@ -40,10 +33,19 @@ export function TransactionForm ({ mutationFunction, data }) {
     }
   }
 
+  const generatePayload = obj => {
+    // converts amount's dollar to cents, returns new obj.
+    const newObj = {}
+    for (let key in obj) {
+      key === 'amount' ? (newObj[key] = obj[key] * 100) : (newObj[key] = obj[key])
+    }
+    return newObj
+  }
+
   const handleSubmit = event => {
     event.preventDefault()
     window.alert(JSON.stringify(transaction))
-    mutationFunction({ variables: transaction })
+    mutationFunction({ variables: generatePayload(transaction) })
   }
 
   return (
