@@ -14,6 +14,7 @@ const initialState = {
 
 export function TransactionForm ({ mutationFunction, data }) {
   const [transaction, setTransaction] = useState(initialState)
+
   useEffect(() => {
     if (data) {
       setTransaction(prevState => ({
@@ -37,11 +38,6 @@ export function TransactionForm ({ mutationFunction, data }) {
     } else {
       setTransaction(prevState => ({ ...prevState, [name]: value }))
     }
-  }
-
-  const toInteger = () => {
-    const amount = parseInt(transaction.amount)
-    setTransaction(prevState => ({ ...prevState, amount: amount }))
   }
 
   const handleSubmit = event => {
@@ -73,7 +69,6 @@ export function TransactionForm ({ mutationFunction, data }) {
       <Styled.Input
         min='0'
         name='amount'
-        onBlur={toInteger}
         onChange={handleChange}
         placeholder='200'
         required
@@ -97,7 +92,7 @@ export function TransactionForm ({ mutationFunction, data }) {
         <option value='credit'>Credit</option>
         <option value='debit'>Debit</option>
       </Styled.Select>
-      <Styled.SubmitButton>Submit</Styled.SubmitButton>
+      <Styled.SubmitButton>{data ? 'Update' : 'Submit'}</Styled.SubmitButton>
     </Styled.Form>
   )
 }

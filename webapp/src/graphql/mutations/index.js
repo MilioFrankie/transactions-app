@@ -27,6 +27,19 @@ export const CREATE_TRANSACTION = gql`
     }
   }
 `
+export const DELETE_TRANSACTION = gql`
+  mutation DeleteTransaction($id: ID!){
+    deleteTransaction(id: $id){
+      amount
+      credit
+      debit
+      description
+      id
+      userId
+      merchantId
+    }
+  }
+`
 export const UPDATE_TRANSACTION = gql`
   mutation UpdateTransaction(
     $id: ID!

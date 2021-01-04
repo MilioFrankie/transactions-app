@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { TransactionTableStyles as Styled } from './transactions-table-styles'
 
-export function TransactionsTable ({ data }) {
+export function TransactionsTable ({ data, deleteMutation }) {
   const headers = ['User', 'Merchant', 'Amount', 'description', 'credit', 'debit', 'update', 'delete']
 
   return (
@@ -23,6 +23,8 @@ export function TransactionsTable ({ data }) {
             <Styled.TD>{transaction.description}</Styled.TD>
             <Styled.TD center>{transaction.credit && <Styled.CheckMark>&#10004;</Styled.CheckMark>}</Styled.TD>
             <Styled.TD center>{transaction.debit && <Styled.CheckMark>&#10004;</Styled.CheckMark>}</Styled.TD>
+            <Styled.TD><button onClick={() => window.alert(transaction.id)}>Update</button></Styled.TD>
+            <Styled.TD><button onClick={() => deleteMutation({ variables: { id: transaction.id } })}>Delete</button></Styled.TD>
           </Styled.TR>
         ))}
       </tbody>
@@ -31,5 +33,6 @@ export function TransactionsTable ({ data }) {
 }
 
 TransactionsTable.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  deleteMutation: PropTypes.func.isRequired
 }

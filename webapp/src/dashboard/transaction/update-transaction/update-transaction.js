@@ -17,7 +17,11 @@ export function UpdateTransaction ({ id }) {
       const { transactions } = cache.readQuery({ query: GET_ALL_TRANSACTIONS })
       cache.writeQuery({
         query: GET_ALL_TRANSACTIONS,
-        data: { transactions: transactions.concat([updateTransaction]) }
+        data: {
+          transactions: transactions.map(transaction =>
+            transaction.id === updateTransaction.id ? updateTransaction : transaction
+          )
+        }
       })
     }
   })
