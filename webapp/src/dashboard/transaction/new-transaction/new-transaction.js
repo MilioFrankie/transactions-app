@@ -7,20 +7,7 @@ import { GET_ALL_TRANSACTIONS } from '../../../graphql/queries'
 import PropTypes from 'prop-types'
 
 export function NewTransaction ({ open, openNewTransactionForm }) {
-  const [createTransaction] = useMutation(CREATE_TRANSACTION, {
-    update (
-      cache,
-      {
-        data: { createTransaction }
-      }
-    ) {
-      const { transactions } = cache.readQuery({ query: GET_ALL_TRANSACTIONS })
-      cache.writeQuery({
-        query: GET_ALL_TRANSACTIONS,
-        data: { transactions: transactions.concat([createTransaction]) }
-      })
-    }
-  })
+  const [createTransaction] = useMutation(CREATE_TRANSACTION, { refetchQueries: [{ query: GET_ALL_TRANSACTIONS }] })
 
   return (
     <Styled.SlideInContainer open={open}>

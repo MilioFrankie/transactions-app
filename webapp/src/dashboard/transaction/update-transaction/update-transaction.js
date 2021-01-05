@@ -8,24 +8,7 @@ import { SmallLoader } from '../../../components/loaders/small-loader'
 import PropTypes from 'prop-types'
 
 export function UpdateTransaction ({ id, open, openUpdateTransForm }) {
-  const [updateTransaction] = useMutation(UPDATE_TRANSACTION, {
-    update (
-      cache,
-      {
-        data: { updateTransaction }
-      }
-    ) {
-      const { transactions } = cache.readQuery({ query: GET_ALL_TRANSACTIONS })
-      cache.writeQuery({
-        query: GET_ALL_TRANSACTIONS,
-        data: {
-          transactions: transactions.map(transaction =>
-            transaction.id === updateTransaction.id ? updateTransaction : transaction
-          )
-        }
-      })
-    }
-  })
+  const [updateTransaction] = useMutation(UPDATE_TRANSACTION, { refetchQueries: [{ query: GET_ALL_TRANSACTIONS }] })
 
   const { loading, error, data } = useQuery(GET_TRANSACTION, {
     variables: { id }

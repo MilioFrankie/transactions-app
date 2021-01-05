@@ -18,6 +18,10 @@ SmallLoader.propTypes = {
 const SmallLoaderContainer = styled.div`
   width: 380px;
   height: 380px;
+  position: fixed;
+  z-index: 7;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
