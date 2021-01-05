@@ -4,6 +4,7 @@ import { TransactionStyles as Styled } from '../transaction-styles'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { UPDATE_TRANSACTION } from '../../../graphql/mutations'
 import { GET_ALL_TRANSACTIONS, GET_TRANSACTION } from '../../../graphql/queries'
+import { SmallLoader } from '../../../components/loaders/small-loader'
 import PropTypes from 'prop-types'
 
 export function UpdateTransaction ({ id, open, openUpdateTransForm }) {
@@ -30,7 +31,7 @@ export function UpdateTransaction ({ id, open, openUpdateTransForm }) {
     variables: { id }
   })
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <SmallLoader loading={loading} />
   if (error) return `Error ${error.message}`
 
   const modifyPayload = obj => {
