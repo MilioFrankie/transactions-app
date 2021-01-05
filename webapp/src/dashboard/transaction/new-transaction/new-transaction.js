@@ -1,11 +1,12 @@
 import React from 'react'
 import { TransactionForm } from '../../../components/forms/transaction-form'
-import styled from '@emotion/styled'
+import { TransactionStyles as Styled } from '../transaction-styles'
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_TRANSACTION } from '../../../graphql/mutations'
 import { GET_ALL_TRANSACTIONS } from '../../../graphql/queries'
+import PropTypes from 'prop-types'
 
-export function NewTransaction () {
+export function NewTransaction ({ open, openNewTransactionForm }) {
   const [createTransaction] = useMutation(CREATE_TRANSACTION, {
     update (
       cache,
@@ -22,15 +23,17 @@ export function NewTransaction () {
   })
 
   return (
-    <FormContainer>
-      <h1>New Transaction</h1>
-      <TransactionForm mutationFunction={createTransaction} />
-    </FormContainer>
+    <Styled.SlideInContainer open={open}>
+      <Styled.XButton onClick={() => openNewTransactionForm(prevState => !prevState)}>&times;</Styled.XButton>
+      <Styled.FormContainer>
+        <h1>New Transaction</h1>
+        <TransactionForm mutationFunction={createTransaction} />
+      </Styled.FormContainer>
+    </Styled.SlideInContainer>
   )
 }
 
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 21px;
-`
+NewTransaction.propTypes = {
+  open: PropTypes.bool,
+  openNewTransactionForm: PropTypes.func
+}

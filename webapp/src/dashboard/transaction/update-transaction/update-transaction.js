@@ -1,12 +1,12 @@
 import React from 'react'
 import { TransactionForm } from '../../../components/forms/transaction-form'
-import styled from '@emotion/styled'
+import { TransactionStyles as Styled } from '../transaction-styles'
 import { useMutation, useQuery } from '@apollo/react-hooks'
 import { UPDATE_TRANSACTION } from '../../../graphql/mutations'
 import { GET_ALL_TRANSACTIONS, GET_TRANSACTION } from '../../../graphql/queries'
 import PropTypes from 'prop-types'
 
-export function UpdateTransaction ({ id }) {
+export function UpdateTransaction ({ id, open, openUpdateTransForm }) {
   const [updateTransaction] = useMutation(UPDATE_TRANSACTION, {
     update (
       cache,
@@ -30,8 +30,8 @@ export function UpdateTransaction ({ id }) {
     variables: { id }
   })
 
-  if (loading) return <p>...Loading</p>
-  if (error) return `Error! ${error}`
+  if (loading) return <p>Loading...</p>
+  if (error) return `Error ${error.message}`
 
   const modifyPayload = obj => {
     const newObj = {}
@@ -42,18 +42,18 @@ export function UpdateTransaction ({ id }) {
   }
 
   return (
-    <FormContainer>
-      <h1>Update Transaction</h1>
-      <TransactionForm data={modifyPayload(data.transaction)} mutationFunction={updateTransaction} />
-    </FormContainer>
+    <Styled.SlideInContainer open={open}>
+      <Styled.XButton onClick={() => openUpdateTransForm(prevState => !prevState)}>&times;</Styled.XButton>
+      <Styled.FormContainer>
+        <h1>Update Transaction</h1>
+        <TransactionForm data={modifyPayload(data.transaction)} mutationFunction={updateTransaction} />
+      </Styled.FormContainer>
+    </Styled.SlideInContainer>
   )
 }
 
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 21px;
-`
 UpdateTransaction.propTypes = {
-  id: PropTypes.any
+  id: PropTypes.any.isRequired,
+  open: PropTypes.bool.isRequired,
+  openUpdateTransForm: PropTypes.func.isRequired
 }

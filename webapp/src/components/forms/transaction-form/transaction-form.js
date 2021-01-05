@@ -3,7 +3,6 @@ import { FormStyles as Styled } from '../form-styles'
 import PropTypes from 'prop-types'
 
 const initialState = {
-  // transactionDate: '',
   merchantId: 'e554eaf1-1eb9-477d-9836-904114852eee',
   amount: 0,
   description: '',
@@ -50,14 +49,6 @@ export function TransactionForm ({ mutationFunction, data }) {
 
   return (
     <Styled.Form onSubmit={handleSubmit}>
-      {/* <label htmlFor='transactionDate'>Date of Transaction</label>
-      <Styled.Input
-        name='transactionDate'
-        onChange={handleChange}
-        required
-        type='date'
-        value={transaction.transactionDate}
-      /> */}
       <label htmlFor='merchantId'>Merchant</label>
       <Styled.Input
         name='merchantId'

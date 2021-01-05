@@ -4,8 +4,9 @@ import { TransactionsTable } from '../../../components/tables/transactions-table
 import { GET_ALL_TRANSACTIONS } from '../../../graphql/queries'
 import { DELETE_TRANSACTION } from '../../../graphql/mutations'
 import styled from '@emotion/styled'
+import PropTypes from 'prop-types'
 
-export function ListTransactions () {
+export function ListTransactions ({ openNewTransactionForm, openUpdateTransForm, setId }) {
   const [deleteTransaction] = useMutation(DELETE_TRANSACTION, {
     update (
       cache,
@@ -28,7 +29,8 @@ export function ListTransactions () {
   return (
     <TransactionContainer>
       <h1>Transactions</h1>
-      <TransactionsTable data={data} deleteMutation={deleteTransaction} />
+      <button onClick={() => openNewTransactionForm(prevState => !prevState)}>New Transaction</button>
+      <TransactionsTable data={data} deleteMutation={deleteTransaction} openUpdateTransForm={openUpdateTransForm} setId={setId} />
     </TransactionContainer>
   )
 }
@@ -36,3 +38,8 @@ export function ListTransactions () {
 const TransactionContainer = styled.div`
   padding: 21px;
 `
+ListTransactions.propTypes = {
+  openNewTransactionForm: PropTypes.func,
+  openUpdateTransForm: PropTypes.func,
+  setId: PropTypes.func
+}
