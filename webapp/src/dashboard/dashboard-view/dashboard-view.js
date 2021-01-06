@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { NewTransaction } from '../transaction/new-transaction'
 import { ListTransactions } from '../transaction/list-transactions'
 import { UpdateTransaction } from '../transaction/update-transaction'
+import { TransactionBarGraph } from '../transaction/transaction-bar-graph'
+import styled from '@emotion/styled'
 
 export function DashboardView () {
   const [newTransactionOpen, setNewTransactionOpen] = useState(false)
@@ -9,7 +11,7 @@ export function DashboardView () {
   const [id, setId] = useState('')
 
   return (
-    <div style={{ display: 'flex' }}>
+    <DashboardContainer>
       <NewTransaction open={newTransactionOpen} openNewTransactionForm={setNewTransactionOpen} />
       {id !== '' && <UpdateTransaction id={id} open={updateTransOpen} openUpdateTransForm={setUpdateTransOpen} />}
       <ListTransactions
@@ -17,6 +19,12 @@ export function DashboardView () {
         openUpdateTransForm={setUpdateTransOpen}
         setId={setId}
       />
-    </div>
+      <TransactionBarGraph />
+    </DashboardContainer>
   )
 }
+
+const DashboardContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`

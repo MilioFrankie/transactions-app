@@ -32,3 +32,12 @@ export const GET_TRANSACTION = gql`
     }
   }
 `
+export const GET_TRANSACTIONS_FOR_HISTOGRAM = gql`
+  query {
+    transactions {
+      id
+      insertedAt
+      amount
+    }
+  }
+`

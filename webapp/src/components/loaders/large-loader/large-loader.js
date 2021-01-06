@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 export function LargeLoader ({ loading }) {
   return (
     <LargeLoaderContainer>
-      <BarLoader color={'#0EB2F1'} height={7} loading={loading} width={250} />
+      <BarLoader color={'#007cba'} height={7} loading={loading} width={250} />
     </LargeLoaderContainer>
   )
 }
