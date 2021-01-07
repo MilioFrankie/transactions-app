@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 
 const lightGrey = '#f1f1f1'
-const errorRed = '#ff0033'
+const red = '#ff0033'
 const Form = styled.form`
   width: 275px;
   display: flex;
@@ -13,7 +13,7 @@ const Input = styled.input`
   border: 1px solid ${lightGrey};
   border-radius: 4px;
 `
-const SubmitButton = styled.button`
+export const SubmitButton = styled.button`
   width: 120px;
   height: 36px;
   border: none;
@@ -30,7 +30,7 @@ const SubmitButton = styled.button`
 `
 const ErrorText = styled.p`
   margin: 0 0 14px;
-  color: ${errorRed};
+  color: ${red};
   font-size: 14px;
 `
 const FormContainer = styled.div`

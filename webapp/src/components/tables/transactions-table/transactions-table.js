@@ -10,6 +10,12 @@ export function TransactionsTable ({ data, deleteMutation, openUpdateTransForm, 
     setId(id)
   }
 
+  const handleDeleteButton = id => {
+    if (window.confirm('Are you sure you want to delete this transaction?')) {
+      deleteMutation({ variables: { id: id } })
+    }
+  }
+
   return (
     <Styled.Table>
       <thead>
@@ -29,10 +35,12 @@ export function TransactionsTable ({ data, deleteMutation, openUpdateTransForm, 
             <Styled.TD center>{transaction.credit && <Styled.CheckMark>&#10004;</Styled.CheckMark>}</Styled.TD>
             <Styled.TD center>{transaction.debit && <Styled.CheckMark>&#10004;</Styled.CheckMark>}</Styled.TD>
             <Styled.TD>
-              <button onClick={() => handleUpdateButton(transaction.id)}>Update</button>
+              <Styled.PlainButton onClick={() => handleUpdateButton(transaction.id)}>Update</Styled.PlainButton>
             </Styled.TD>
             <Styled.TD>
-              <button onClick={() => deleteMutation({ variables: { id: transaction.id } })}>Delete</button>
+              <Styled.PlainButton danger onClick={() => handleDeleteButton(transaction.id)}>
+                Delete
+              </Styled.PlainButton>
             </Styled.TD>
           </Styled.TR>
         ))}

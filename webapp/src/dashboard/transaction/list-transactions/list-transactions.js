@@ -4,8 +4,7 @@ import { TransactionsTable } from '../../../components/tables/transactions-table
 import { GET_ALL_TRANSACTIONS, GET_TRANSACTIONS_FOR_HISTOGRAM } from '../../../graphql/queries'
 import { DELETE_TRANSACTION } from '../../../graphql/mutations'
 import { LargeLoader } from '../../../components/loaders/large-loader'
-import styled from '@emotion/styled'
-
+import { ListTransactionsStyles as Styled } from './list-transactions-styles'
 import PropTypes from 'prop-types'
 
 export function ListTransactions ({ openNewTransactionForm, openUpdateTransForm, setId }) {
@@ -19,16 +18,16 @@ export function ListTransactions ({ openNewTransactionForm, openUpdateTransForm,
   if (error) return `Error ${error.message}`
 
   return (
-    <TransactionContainer>
+    <Styled.TransactionContainer>
       <h1>Transactions</h1>
-      <button onClick={() => openNewTransactionForm(prevState => !prevState)}>New Transaction</button>
+      <Styled.CreateButton onClick={() => openNewTransactionForm(prevState => !prevState)}>Add</Styled.CreateButton>
       <TransactionsTable
         data={data}
         deleteMutation={deleteTransaction}
         openUpdateTransForm={openUpdateTransForm}
         setId={setId}
       />
-    </TransactionContainer>
+    </Styled.TransactionContainer>
   )
 }
 
@@ -37,7 +36,3 @@ ListTransactions.propTypes = {
   openUpdateTransForm: PropTypes.func,
   setId: PropTypes.func
 }
-
-const TransactionContainer = styled.div`
-  padding: 21px;
-`

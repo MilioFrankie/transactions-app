@@ -13,20 +13,22 @@ const initialState = {
 
 export function TransactionForm ({ mutationFunction, data }) {
   const [transaction, setTransaction] = useState(initialState)
+  const [cardType, setCardType] = useState('')
 
   useEffect(() => {
     if (data) {
-      setTransaction(prevState => ({
-        ...prevState, ...data
-      }))
+      setTransaction({ ...data })
+      data.credit ? setCardType('credit') : setCardType('debit')
     }
   }, [])
 
   const handleChange = ({ target: { name, value } }) => {
     if (value === 'credit') {
       setTransaction(prevState => ({ ...prevState, credit: true, debit: false }))
+      setCardType('credit')
     } else if (value === 'debit') {
       setTransaction(prevState => ({ ...prevState, credit: false, debit: true }))
+      setCardType('debit')
     } else {
       setTransaction(prevState => ({ ...prevState, [name]: value }))
     }
@@ -78,7 +80,7 @@ export function TransactionForm ({ mutationFunction, data }) {
         value={transaction.description}
       />
       <label htmlFor='cardType'>Card Type</label>
-      <Styled.Select id='cardType' name='cardType' onBlur={handleChange} required>
+      <Styled.Select id='cardType' name='cardType' onChange={handleChange} required value={cardType}>
         <option hidden value=''>
           Please select card type.
         </option>
