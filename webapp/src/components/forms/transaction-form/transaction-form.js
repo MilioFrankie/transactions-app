@@ -45,7 +45,6 @@ export function TransactionForm ({ mutationFunction, data }) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    window.alert(JSON.stringify(transaction))
     mutationFunction({ variables: generatePayload(transaction) })
   }
 

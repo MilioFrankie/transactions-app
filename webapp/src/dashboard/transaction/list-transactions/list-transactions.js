@@ -5,11 +5,15 @@ import { GET_ALL_TRANSACTIONS, GET_TRANSACTIONS_FOR_HISTOGRAM } from '../../../g
 import { DELETE_TRANSACTION } from '../../../graphql/mutations'
 import { LargeLoader } from '../../../components/loaders/large-loader'
 import { ListTransactionsStyles as Styled } from './list-transactions-styles'
+import { useToasts } from 'react-toast-notifications'
 import PropTypes from 'prop-types'
 
 export function ListTransactions ({ openNewTransactionForm, openUpdateTransForm, setId }) {
+  const { addToast } = useToasts()
   const [deleteTransaction] = useMutation(DELETE_TRANSACTION, {
-    refetchQueries: [{ query: GET_ALL_TRANSACTIONS }, { query: GET_TRANSACTIONS_FOR_HISTOGRAM }]
+    refetchQueries: [{ query: GET_ALL_TRANSACTIONS }, { query: GET_TRANSACTIONS_FOR_HISTOGRAM }],
+    onCompleted: () => addToast('The transaction was deleted.', { appearance: 'success' }),
+    onError: () => addToast('Oops Something went wrong', { appearance: 'error' })
   })
 
   const { loading, error, data } = useQuery(GET_ALL_TRANSACTIONS)

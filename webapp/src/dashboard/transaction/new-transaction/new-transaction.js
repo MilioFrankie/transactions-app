@@ -4,11 +4,21 @@ import { TransactionStyles as Styled } from '../transaction-styles'
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_TRANSACTION } from '../../../graphql/mutations'
 import { GET_ALL_TRANSACTIONS, GET_TRANSACTIONS_FOR_HISTOGRAM } from '../../../graphql/queries'
+import { useToasts } from 'react-toast-notifications'
 import PropTypes from 'prop-types'
 
 export function NewTransaction ({ open, openNewTransactionForm }) {
+  const { addToast } = useToasts()
   const [createTransaction] = useMutation(CREATE_TRANSACTION, {
-    refetchQueries: [{ query: GET_ALL_TRANSACTIONS }, { query: GET_TRANSACTIONS_FOR_HISTOGRAM }]
+    refetchQueries: [{ query: GET_ALL_TRANSACTIONS }, { query: GET_TRANSACTIONS_FOR_HISTOGRAM }],
+    onCompleted: () => {
+      addToast('Your transaction was added.', { appearance: 'success' })
+      openNewTransactionForm(prevState => !prevState)
+    },
+    onError: () => {
+      addToast('Oops Something went wrong', { appearance: 'error' })
+      openNewTransactionForm(prevState => !prevState)
+    }
   })
 
   return (
