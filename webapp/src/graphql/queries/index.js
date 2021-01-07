@@ -32,7 +32,7 @@ export const GET_TRANSACTION = gql`
     }
   }
 `
-export const GET_TRANSACTIONS_FOR_HISTOGRAM = gql`
+export const GET_TRANSACTIONS_FOR_CHART = gql`
   query {
     transactions {
       id

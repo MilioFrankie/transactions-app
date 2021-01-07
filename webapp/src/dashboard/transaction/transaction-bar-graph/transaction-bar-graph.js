@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Chart from 'react-google-charts'
 import { useQuery } from '@apollo/react-hooks'
 import { LargeLoader } from '../../../components/loaders/large-loader'
-import { GET_TRANSACTIONS_FOR_HISTOGRAM } from '../../../graphql/queries'
+import { GET_TRANSACTIONS_FOR_CHART } from '../../../graphql/queries'
 
 export function TransactionBarGraph () {
   const [values, setValues] = useState([])
-  const { data, loading, error } = useQuery(GET_TRANSACTIONS_FOR_HISTOGRAM)
+  const { data, loading, error } = useQuery(GET_TRANSACTIONS_FOR_CHART)
 
   useEffect(() => {
     if (data) {
@@ -29,7 +29,7 @@ export function TransactionBarGraph () {
         loader={<LargeLoader loading />}
         options={{
           chart: {
-            title: 'Amount Spent Per Day'
+            subtitle: 'In Dollar Amount.'
           },
           colors: ['#169f6d']
         }}
