@@ -5,6 +5,7 @@ import { Navbar } from './components/navbar'
 import { Login } from './components/auth/login'
 import { SignUp } from './components/auth/sign-up'
 import { DashboardView } from './dashboard/dashboard-view'
+import { PrivateRoute } from './components/auth/private-route'
 
 function AppRouter () {
   return (
@@ -12,7 +13,7 @@ function AppRouter () {
       <div css={layoutStyle}>
         <Navbar />
         <div className='main-content' css={contentStyle}>
-          <Route component={DashboardView} exact path='/' />
+          <PrivateRoute component={DashboardView} exact path='/' />
           <Route component={Login} exact path='/login' />
           <Route component={SignUp} exact path='/sign-up' />
         </div>

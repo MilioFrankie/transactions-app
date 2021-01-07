@@ -1,27 +1,32 @@
 import React, { useState } from 'react'
 import { FormStyles as Styled } from '../form-styles'
+import { useAuth } from '../../../context/auth-context'
+import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const intialState = {
   email: '',
   password: ''
 }
 
-export function LoginForm () {
+function LoginForm ({ history }) {
   const [loginDetail, setLoginDetail] = useState(intialState)
-
+  const { setUser } = useAuth()
   const handleChange = ({ target: { name, value } }) => {
     setLoginDetail(prevState => ({ ...prevState, [name]: value }))
   }
 
   const handleSubmit = event => {
     event.preventDefault()
-    window.alert('Auth for login comeing soon.')
+    setUser((prevState) => ({ ...prevState, authenticated: true }))
+    history.push('/')
   }
 
   return (
     <Styled.Form onSubmit={handleSubmit}>
       <label htmlFor='email'>Email</label>
       <Styled.Input
+        id='email'
         name='email'
         onChange={handleChange}
         placeholder='john@example.com'
@@ -31,6 +36,7 @@ export function LoginForm () {
       />
       <label htmlFor='password'>Password</label>
       <Styled.Input
+        id='password'
         name='password'
         onChange={handleChange}
         placeholder='your password'
@@ -41,4 +47,10 @@ export function LoginForm () {
       <Styled.SubmitButton>Login</Styled.SubmitButton>
     </Styled.Form>
   )
+}
+
+export const LoginFormWithRouter = withRouter(LoginForm)
+
+LoginForm.propTypes = {
+  history: PropTypes.any
 }

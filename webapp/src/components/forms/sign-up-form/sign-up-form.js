@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { FormStyles as Styled } from '../form-styles'
+import { useAuth } from '../../../context/auth-context'
+import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const intialState = {
   firstName: '',
@@ -10,9 +13,10 @@ const intialState = {
   confirmPassword: ''
 }
 
-export function SignUpForm () {
+function SignUpForm ({ history }) {
   const [signUpDetails, setSignUpDetails] = useState(intialState)
   const [validPassword, setValidPassword] = useState(true)
+  const { setUser } = useAuth()
 
   const handleChange = ({ target: { name, value } }) => {
     setSignUpDetails(prevState => ({ ...prevState, [name]: value }))
@@ -20,7 +24,10 @@ export function SignUpForm () {
 
   const handleSubmit = event => {
     event.preventDefault()
-    validatePassword() && window.alert(`Sign up GraphQL mutation coming soon ${signUpDetails.firstName}!`)
+    if (validatePassword()) {
+      setUser((prevState) => ({ ...prevState, authenticated: true }))
+      history.push('/')
+    }
   }
 
   const validatePassword = () => {
@@ -38,6 +45,7 @@ export function SignUpForm () {
     <Styled.Form onSubmit={handleSubmit}>
       <label htmlFor='firstName'>First Name</label>
       <Styled.Input
+        id='firstName'
         name='firstName'
         onChange={handleChange}
         placeholder='John'
@@ -47,6 +55,7 @@ export function SignUpForm () {
       />
       <label htmlFor='lastName'>Last Name</label>
       <Styled.Input
+        id='lastName'
         name='lastName'
         onChange={handleChange}
         placeholder='Doe'
@@ -55,9 +64,10 @@ export function SignUpForm () {
         value={signUpDetails.lastName}
       />
       <label htmlFor='dateOfBirth'>Date of Birth</label>
-      <Styled.Input name='dateOfBirth' onChange={handleChange} required type='date' value={signUpDetails.dateOfBirth} />
+      <Styled.Input id='dateOfBirth' name='dateOfBirth' onChange={handleChange} required type='date' value={signUpDetails.dateOfBirth} />
       <label htmlFor='email'>Email</label>
       <Styled.Input
+        id='email'
         name='email'
         onChange={handleChange}
         placeholder='john@example.com'
@@ -67,6 +77,7 @@ export function SignUpForm () {
       />
       <label htmlFor='password'>Password</label>
       <Styled.Input
+        id='password'
         name='password'
         onChange={handleChange}
         placeholder='your password'
@@ -76,6 +87,7 @@ export function SignUpForm () {
       />
       <label htmlFor='confirmPassword'>Confirm Password</label>
       <Styled.Input
+        id='confirmPassword'
         name='confirmPassword'
         onBlur={validatePassword}
         onChange={handleChange}
@@ -88,4 +100,10 @@ export function SignUpForm () {
       <Styled.SubmitButton>Sign Up</Styled.SubmitButton>
     </Styled.Form>
   )
+}
+
+export const SignUpFormWithRouter = withRouter(SignUpForm)
+
+SignUpForm.propTypes = {
+  history: PropTypes.any
 }

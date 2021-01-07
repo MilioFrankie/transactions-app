@@ -3,7 +3,7 @@ import { NewTransaction } from '../transaction/new-transaction'
 import { ListTransactions } from '../transaction/list-transactions'
 import { UpdateTransaction } from '../transaction/update-transaction'
 import { TransactionBarGraph } from '../transaction/transaction-bar-graph'
-import styled from '@emotion/styled'
+import { DashboardViewStyles as Styled } from './dashboard-view-styles'
 
 export function DashboardView () {
   const [newTransactionOpen, setNewTransactionOpen] = useState(false)
@@ -11,20 +11,17 @@ export function DashboardView () {
   const [id, setId] = useState('')
 
   return (
-    <DashboardContainer>
-      <NewTransaction open={newTransactionOpen} openNewTransactionForm={setNewTransactionOpen} />
+    <Styled.Container formOpen={newTransactionOpen || updateTransOpen}>
       {id !== '' && <UpdateTransaction id={id} open={updateTransOpen} openUpdateTransForm={setUpdateTransOpen} />}
-      <ListTransactions
-        openNewTransactionForm={setNewTransactionOpen}
-        openUpdateTransForm={setUpdateTransOpen}
-        setId={setId}
-      />
-      <TransactionBarGraph />
-    </DashboardContainer>
+      <NewTransaction open={newTransactionOpen} openNewTransactionForm={setNewTransactionOpen} />
+      <Styled.ContentContainer>
+        <ListTransactions
+          openNewTransactionForm={setNewTransactionOpen}
+          openUpdateTransForm={setUpdateTransOpen}
+          setId={setId}
+        />
+        <TransactionBarGraph />
+      </Styled.ContentContainer>
+    </Styled.Container>
   )
 }
-
-const DashboardContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`

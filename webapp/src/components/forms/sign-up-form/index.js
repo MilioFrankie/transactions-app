@@ -1,1 +1,1 @@
-export { SignUpForm } from './sign-up-form'
+export { SignUpFormWithRouter as SignUpForm } from './sign-up-form'

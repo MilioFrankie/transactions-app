@@ -52,6 +52,7 @@ export function TransactionForm ({ mutationFunction, data }) {
     <Styled.Form onSubmit={handleSubmit}>
       <label htmlFor='merchantId'>Merchant</label>
       <Styled.Input
+        id='merchantId'
         name='merchantId'
         onChange={handleChange}
         placeholder='Costco'
@@ -61,6 +62,7 @@ export function TransactionForm ({ mutationFunction, data }) {
       />
       <label htmlFor='amount'>Amount</label>
       <Styled.Input
+        id='amount'
         min='0'
         name='amount'
         onChange={handleChange}
@@ -71,6 +73,7 @@ export function TransactionForm ({ mutationFunction, data }) {
       />
       <label htmlFor='description'>Description</label>
       <Styled.Input
+        id='description'
         name='description'
         onChange={handleChange}
         placeholder='Grocery'

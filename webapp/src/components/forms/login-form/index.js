@@ -1,1 +1,1 @@
-export { LoginForm } from './login-form'
+export { LoginFormWithRouter as LoginForm } from './login-form'
