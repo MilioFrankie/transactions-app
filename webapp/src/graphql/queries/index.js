@@ -41,3 +41,19 @@ export const GET_TRANSACTIONS_FOR_CHART = gql`
     }
   }
 `
+export const GET_USER = gql`
+  query User($firstName: String!) {
+    user(firstName: $firstName) {
+      id
+      firstName
+    }
+  }
+`
+export const GET_MERCHANTS = gql`
+  query {
+    merchants{
+      name
+      id
+    }
+  }
+`
