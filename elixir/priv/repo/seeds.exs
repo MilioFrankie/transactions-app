@@ -55,7 +55,7 @@ users_list = [
   }
 ]
 
-{5, users} = Repo.insert_all(User, users_list, returning: true, on_conlict: :nothing)
+{5, users} = Repo.insert_all(User, users_list, returning: true, on_conflict: :nothing)
 
 merchants_list = [
   %{
@@ -75,7 +75,7 @@ merchants_list = [
   }
 ]
 
-{5, merchants} = Repo.insert_all(Merchant, merchants_list, returning: true, on_conlict: :nothing)
+{5, merchants} = Repo.insert_all(Merchant, merchants_list, returning: true, on_conflict: :nothing)
 
 transaction_descriptions = ["Cheese", "4k TV", "Beef", "Gift Card", "Ladder", "PS5"]
 
@@ -102,7 +102,7 @@ transactions_list =
   end)
 
 {15, _transactions} =
-  Repo.insert_all(Transaction, transactions_list, returning: true, on_conlict: :nothing)
+  Repo.insert_all(Transaction, transactions_list, returning: true, on_conflict: :nothing)
 
 _admin_user =
   Repo.insert!(
