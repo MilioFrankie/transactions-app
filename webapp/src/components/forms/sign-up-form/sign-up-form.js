@@ -13,7 +13,7 @@ const intialState = {
   confirmPassword: ''
 }
 
-function SignUpForm ({ history }) {
+function SignUpForm ({ history, user }) {
   const [signUpDetails, setSignUpDetails] = useState(intialState)
   const [validPassword, setValidPassword] = useState(true)
   const { setUser } = useAuth()
@@ -25,7 +25,8 @@ function SignUpForm ({ history }) {
   const handleSubmit = event => {
     event.preventDefault()
     if (validatePassword()) {
-      setUser((prevState) => ({ ...prevState, authenticated: true }))
+      // set fake auth and user
+      setUser((prevState) => ({ ...prevState, authenticated: true, user: user }))
       history.push('/')
     }
   }
@@ -105,5 +106,6 @@ function SignUpForm ({ history }) {
 export const SignUpFormWithRouter = withRouter(SignUpForm)
 
 SignUpForm.propTypes = {
-  history: PropTypes.any
+  history: PropTypes.any,
+  user: PropTypes.object
 }

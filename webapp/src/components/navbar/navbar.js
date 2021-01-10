@@ -9,13 +9,18 @@ export function Navbar () {
 
   return (
     <Styled.NavbarContainer>
-      <h1><Link to='/'>Transaction Dashboard</Link></h1>
+      <h1>
+        <Link to='/'>Transaction Dashboard</Link>
+      </h1>
       <nav>
         <Styled.ListContainer>
           {user.authenticated ? (
-            <li>
-              <PlainButton onClick={() => setUser(prevState => !prevState.authenticated)}>Logout</PlainButton>
-            </li>
+            <>
+              <li>{user.user.firstName}</li>
+              <li>
+                <PlainButton onClick={() => setUser(prevState => !prevState.authenticated)}>Logout</PlainButton>
+              </li>
+            </>
           ) : (
             <>
               <li>

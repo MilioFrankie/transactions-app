@@ -9,7 +9,7 @@ const intialState = {
   password: ''
 }
 
-function LoginForm ({ history }) {
+function LoginForm ({ history, user }) {
   const [loginDetail, setLoginDetail] = useState(intialState)
   const { setUser } = useAuth()
   const handleChange = ({ target: { name, value } }) => {
@@ -18,7 +18,8 @@ function LoginForm ({ history }) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    setUser((prevState) => ({ ...prevState, authenticated: true }))
+    // set fake auth and user
+    setUser((prevState) => ({ ...prevState, authenticated: true, user: user }))
     history.push('/')
   }
 
@@ -52,5 +53,6 @@ function LoginForm ({ history }) {
 export const LoginFormWithRouter = withRouter(LoginForm)
 
 LoginForm.propTypes = {
-  history: PropTypes.any
+  history: PropTypes.any,
+  user: PropTypes.object
 }
