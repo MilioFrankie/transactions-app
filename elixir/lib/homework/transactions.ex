@@ -17,7 +17,17 @@ defmodule Homework.Transactions do
       [%Transaction{}, ...]
 
   """
-  def list_transactions(_args) do
+  # def list_transactions(_args) do
+  #   query =
+  #     from(transaction in Transaction,
+  #       left_join: merchant in assoc(transaction, :merchant),
+  #       left_join: user in assoc(transaction, :user),
+  #       preload: [:merchant, :user]
+  #     )
+
+  #   Repo.all(query)
+  # end
+    def list_transactions(_args) do
     query =
       from(transaction in Transaction,
         left_join: merchant in assoc(transaction, :merchant),
@@ -25,7 +35,9 @@ defmodule Homework.Transactions do
         preload: [:merchant, :user]
       )
 
-    Repo.all(query)
+    query
+    |> order_by(desc: :inserted_at)  
+    |> Repo.all
   end
 
   @doc """
