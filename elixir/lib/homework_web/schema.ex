@@ -26,6 +26,12 @@ defmodule HomeworkWeb.Schema do
       resolve(&UsersResolver.users/3)
     end
 
+    @desc "Get a user by First Name"
+    field(:user, :user) do
+      arg(:first_name, non_null(:string))
+      resolve(&UsersResolver.user_by_name/3)
+    end
+
     @desc "Get all Merchants"
     field(:merchants, list_of(:merchant)) do
       resolve(&MerchantsResolver.merchants/3)

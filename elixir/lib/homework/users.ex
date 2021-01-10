@@ -40,6 +40,22 @@ defmodule Homework.Users do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Gets a single user by their first_name.
+
+  Raises `Ecto.NoResultsError` if the User does not exist.
+
+  ## Examples
+
+      iex> get_user_by_name!("Tony")
+      %User{}
+
+      iex> get_user!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_user_by_name!(first_name), do: Repo.get_by!(User, first_name: first_name)
+
+  @doc """
   Creates a user.
 
   ## Examples
@@ -51,8 +67,8 @@ defmodule Homework.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_user(map)::{:ok, User.t()} | {:error, Changeset.t()}
-  
+  @spec create_user(map) :: {:ok, User.t()} | {:error, Changeset.t()}
+
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
