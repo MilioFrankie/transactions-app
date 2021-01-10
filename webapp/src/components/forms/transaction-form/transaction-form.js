@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import { FormStyles as Styled } from '../form-styles'
+import { useAuth } from '../../../context/auth-context'
+import MerchantSelection from './merchant-selection'
 import PropTypes from 'prop-types'
 
 const initialState = {
-  merchantId: 'e554eaf1-1eb9-477d-9836-904114852eee',
+  merchantId: '',
   amount: 0,
   description: '',
   credit: false,
   debit: false,
-  userId: '5d478bc5-5602-4fee-9563-fc9135a3369e'
+  userId: ''
 }
 
 export function TransactionForm ({ mutationFunction, data }) {
   const [transaction, setTransaction] = useState(initialState)
   const [cardType, setCardType] = useState('')
+  const { user } = useAuth()
 
   useEffect(() => {
     if (data) {
       setTransaction({ ...data })
       data.credit ? setCardType('credit') : setCardType('debit')
+    } else if (user) {
+      const id = user.user.id
+      setTransaction(prevState => ({ ...prevState, userId: id }))
     }
   }, [])
 
@@ -36,30 +42,20 @@ export function TransactionForm ({ mutationFunction, data }) {
 
   const generatePayload = obj => {
     // converts amount's dollar to cents, returns new obj.
-    const newObj = {}
-    for (let key in obj) {
-      key === 'amount' ? (newObj[key] = obj[key] * 100) : (newObj[key] = obj[key])
-    }
+    const inCents = obj.amount * 100
+    const newObj = { ...obj, amount: inCents }
     return newObj
   }
 
   const handleSubmit = event => {
     event.preventDefault()
     mutationFunction({ variables: generatePayload(transaction) })
+    setTransaction({ ...initialState })
   }
 
   return (
     <Styled.Form onSubmit={handleSubmit}>
-      <label htmlFor='merchantId'>Merchant</label>
-      <Styled.Input
-        id='merchantId'
-        name='merchantId'
-        onChange={handleChange}
-        placeholder='Costco'
-        required
-        type='text'
-        value={transaction.merchantId}
-      />
+      <MerchantSelection handleChange={handleChange} value={transaction.merchantId} />
       <label htmlFor='amount'>Amount</label>
       <Styled.Input
         id='amount'
@@ -68,6 +64,7 @@ export function TransactionForm ({ mutationFunction, data }) {
         onChange={handleChange}
         placeholder='200'
         required
+        step='0.01'
         type='number'
         value={transaction.amount}
       />

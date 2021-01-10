@@ -43,7 +43,7 @@ const FormContainer = styled.div`
 const FormTitle = styled.h1`
   margin-top: 0;
 `
-const Select = styled.select`
+export const Select = styled.select`
   margin: 7px 0;
   padding: 14px;
   border: 1px solid ${lightGrey};
