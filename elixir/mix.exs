@@ -35,6 +35,7 @@ defmodule Homework.MixProject do
     [
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
+      {:cors_plug, "~> 2.0"},
       {:ecto_sql, "~> 3.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
@@ -46,7 +47,6 @@ defmodule Homework.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
-      {:cors_plug, "~> 2.0"},
     ]
   end
 

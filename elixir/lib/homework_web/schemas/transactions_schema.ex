@@ -16,9 +16,7 @@ defmodule HomeworkWeb.Schemas.TransactionsSchema do
     field(:merchant_id, :id)
     field(:inserted_at, :naive_datetime)
     field(:updated_at, :naive_datetime)
-
     field(:user, :user)
-
     field(:merchant, :merchant)
   end
 
