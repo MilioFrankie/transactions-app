@@ -9,26 +9,106 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-alias Homework.Users
-alias Homework.Merchants
-alias Homework.Transactions
 
-{:ok, user_one} = Users.create_user(%{
-    dob: "10/26/1992",
-    first_name: "Tony",
-    last_name: "Stark"
-})
+alias Homework.Users.User
+alias Homework.Merchants.Merchant
+alias Homework.Transactions.Transaction
+alias Homework.Repo
 
-{:ok, merchant_one} = Merchants.create_merchant(%{
-    name: "Playstation",
-    description: "Sony Interactive Entertainment LLC"
-})
+now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
 
-{:ok, transaction_one} = Transactions.create_transaction(%{
-    amount: 49900,
-    credit: false,
-    debit: true,
-    description: "PS5 without tax lol",
-    merchant_id: merchant_one.id,
-    user_id: user_one.id
-})
+users_list = [
+  %{
+    first_name: "Thor",
+    last_name: "Odinson",
+    dob: "04/27/1345",
+    inserted_at: now,
+    updated_at: now
+  },
+  %{
+    first_name: "Bruce",
+    last_name: "Banner",
+    dob: "06/03/1976",
+    inserted_at: now,
+    updated_at: now
+  },
+  %{
+    first_name: "Natasha",
+    last_name: "Romanove",
+    dob: "05/25/1985",
+    inserted_at: now,
+    updated_at: now
+  },
+  %{
+    first_name: "Steve",
+    last_name: "Rogers",
+    dob: "07/04/1918",
+    inserted_at: now,
+    updated_at: now
+  },
+  %{
+    first_name: "Thanos",
+    last_name: "Mad-Titan",
+    dob: "2/06/1186",
+    inserted_at: now,
+    updated_at: now
+  }
+]
+
+{5, users} = Repo.insert_all(User, users_list, returning: true, on_conlict: :nothing)
+
+merchants_list = [
+  %{
+    name: "Walmart",
+    description: "Grocery stores/supermarkets/bakeries",
+    inserted_at: now,
+    updated_at: now
+  },
+  %{name: "Amazon", description: "Online Marketplace", inserted_at: now, updated_at: now},
+  %{name: "Kroger", description: "Grocery Retailer", inserted_at: now, updated_at: now},
+  %{name: "Costco", description: "Wholesale Retailer", inserted_at: now, updated_at: now},
+  %{
+    name: "The Home Depot",
+    description: "Home Improvement Retailer",
+    inserted_at: now,
+    updated_at: now
+  }
+]
+
+{5, merchants} = Repo.insert_all(Merchant, merchants_list, returning: true, on_conlict: :nothing)
+
+transaction_descriptions = ["Cheese", "4k TV", "Beef", "Gift Card", "Ladder", "PS5"]
+
+dates =
+  Date.range(~D[2020-12-27], ~D[2021-01-09])
+  |> Enum.map(fn d -> Date.to_erl(d) end)
+  |> Enum.map(fn d ->
+    {:ok, d} = NaiveDateTime.from_erl({d, {Enum.random(1..23), Enum.random(1..59), 15}})
+    d
+  end)
+
+transactions_list =
+  Enum.map(1..15, fn _ ->
+    %{
+      amount: Enum.random(450..50000),
+      credit: false,
+      debit: true,
+      description: Enum.random(transaction_descriptions),
+      user_id: Enum.random(users).id,
+      merchant_id: Enum.random(merchants).id,
+      inserted_at: Enum.random(dates),
+      updated_at: now
+    }
+  end)
+
+{15, _transactions} =
+  Repo.insert_all(Transaction, transactions_list, returning: true, on_conlict: :nothing)
+
+_admin_user =
+  Repo.insert!(
+    User.changeset(%User{}, %{
+      dob: "10/26/1992",
+      first_name: "Admin Tony",
+      last_name: "Stark"
+    })
+  )
