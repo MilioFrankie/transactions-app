@@ -3,6 +3,7 @@ defmodule Homework.Users.User do
   import Ecto.Changeset
   alias Homework.Transactions.Transaction
 
+  @fields [:first_name, :last_name, :dob]
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "users" do
     field(:dob, :string)
@@ -16,7 +17,7 @@ defmodule Homework.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:first_name, :last_name, :dob])
-    |> validate_required([:first_name, :last_name, :dob])
+    |> cast(attrs, @fields)
+    |> validate_required(@fields)
   end
 end
