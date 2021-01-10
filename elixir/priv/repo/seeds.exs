@@ -10,10 +10,11 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias Homework.Users.User
 alias Homework.Merchants.Merchant
-alias Homework.Transactions.Transaction
 alias Homework.Repo
+alias Homework.Transactions.Transaction
+alias Homework.Users.User
+alias Homework.Utils.SeedUtil
 
 now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
 
@@ -23,7 +24,7 @@ users_list = [
     last_name: "Odinson",
     dob: "04/27/1345",
     inserted_at: now,
-    updated_at: now
+    updated_at: now,
   },
   %{
     first_name: "Bruce",
@@ -79,14 +80,6 @@ merchants_list = [
 
 transaction_descriptions = ["Cheese", "4k TV", "Beef", "Gift Card", "Ladder", "PS5"]
 
-dates =
-  Date.range(~D[2020-12-27], ~D[2021-01-09])
-  |> Enum.map(fn d -> Date.to_erl(d) end)
-  |> Enum.map(fn d ->
-    {:ok, d} = NaiveDateTime.from_erl({d, {Enum.random(1..23), Enum.random(1..59), 15}})
-    d
-  end)
-
 transactions_list =
   Enum.map(1..15, fn _ ->
     %{
@@ -96,7 +89,7 @@ transactions_list =
       description: Enum.random(transaction_descriptions),
       user_id: Enum.random(users).id,
       merchant_id: Enum.random(merchants).id,
-      inserted_at: Enum.random(dates),
+      inserted_at: SeedUtil.random_date(NaiveDateTime.utc_now()),
       updated_at: now
     }
   end)
