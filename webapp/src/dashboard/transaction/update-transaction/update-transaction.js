@@ -30,10 +30,8 @@ export function UpdateTransaction ({ id, open, openUpdateTransForm }) {
   if (error) return `Error ${error.message}`
 
   const modifyPayload = obj => {
-    const newObj = {}
-    for (let key in obj) {
-      key === 'amount' ? (newObj[key] = obj[key] / 100) : (newObj[key] = obj[key])
-    }
+    const inDollar = obj.amount / 100
+    const newObj = { ...obj, amount: inDollar }
     return newObj
   }
 
